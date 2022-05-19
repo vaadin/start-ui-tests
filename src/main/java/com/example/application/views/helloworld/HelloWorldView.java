@@ -14,8 +14,8 @@ import com.vaadin.flow.router.RouteAlias;
 @RouteAlias(value = "", layout = MainLayout.class)
 public class HelloWorldView extends HorizontalLayout {
 
-    private TextField name;
-    private Button sayHello;
+    TextField name;
+    Button sayHello;
 
     public HelloWorldView() {
         name = new TextField("Your name");
