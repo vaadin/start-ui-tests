@@ -1,0 +1,5 @@
+﻿.idea
+target
+node_modules
+frontend/generated
+.vscode
