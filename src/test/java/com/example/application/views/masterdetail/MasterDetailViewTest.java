@@ -41,6 +41,7 @@ class MasterDetailViewTest extends UIUnitTest {
     SamplePersonRepository repository;
 
     List<SamplePerson> people;
+    private GridWrap<Grid<SamplePerson>, SamplePerson> grid_;
 
     @BeforeEach
     @Override
@@ -49,14 +50,13 @@ class MasterDetailViewTest extends UIUnitTest {
     }
 
     @BeforeEach
-    void fetchTestData() {
+    void setupTestData() {
         people = repository.findAll(Pageable.ofSize(10)).toList();
+        grid_ = $(Grid.class).first();
     }
 
     @Test
     void gridContainsData() {
-        GridWrap<Grid<SamplePerson>, SamplePerson> grid_ = $(Grid.class)
-                .first();
         Assertions.assertTrue(grid_.size() > 20,
                 "With the generated data, there should be at least twenty rows in the grid, but found "
                         + grid_.size());
@@ -75,8 +75,6 @@ class MasterDetailViewTest extends UIUnitTest {
         int selectedRow = ThreadLocalRandom.current().nextInt(0, people.size());
         SamplePerson person = people.get(selectedRow);
 
-        GridWrap<Grid<SamplePerson>, SamplePerson> grid_ = $(Grid.class)
-                .first();
         grid_.clickRow(selectedRow);
 
         List<SamplePerson> selectedRows = new ArrayList<>(grid_.getSelected());
@@ -93,8 +91,6 @@ class MasterDetailViewTest extends UIUnitTest {
 
     @Test
     void selectPersonOnGrid_singleSelectionIsAllowed() {
-        GridWrap<Grid<SamplePerson>, SamplePerson> grid_ = $(Grid.class)
-                .first();
         grid_.clickRow(2);
         Assertions.assertEquals(1, grid_.getSelected().size(),
                 "Expecting a single row to be selected");
@@ -115,8 +111,6 @@ class MasterDetailViewTest extends UIUnitTest {
         Assertions.assertTrue(textField.isEmpty(),
                 "Expecting field to be null when entering the form");
 
-        GridWrap<Grid<SamplePerson>, SamplePerson> grid_ = $(Grid.class)
-                .first();
         grid_.clickRow(2);
         Assertions.assertFalse(textField.isEmpty(),
                 "Expecting field to be filled when selecting row");
