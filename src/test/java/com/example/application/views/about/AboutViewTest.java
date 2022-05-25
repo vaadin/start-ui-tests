@@ -25,22 +25,20 @@ class AboutViewTest extends UIUnitTest {
         AboutView about = navigate(aboutString, AboutView.class);
 
         Assertions.assertTrue(
-                select(Image.class).from(about).first().getComponent()
+                $(Image.class).from(about).first().getComponent()
                         .isVisible(),
                 "Image should be visible on the AboutView");
     }
 
     @Nullable
     private String getMenuItemLink() {
-        final List<RouterLink> menuItems = select(
-                RouterLink.class).withCondition(
-                        link -> link.getClassName().contains("menu-item-link"))
+        final List<RouterLink> menuItems = $(
+                RouterLink.class).withClassName("menu-item-link")
                 .allComponents();
         String aboutString = null;
         for (RouterLink link : menuItems) {
             // Missing the withClass query here.
-            if (select(Span.class).from(link).withCondition(
-                            s -> s.getClassName().contains("menu-item-text")).first()
+            if ($(Span.class).from(link).withClassName("menu-item-text").first()
                     .getComponent().getText().equalsIgnoreCase("about")) {
                 aboutString = link.getHref();
                 break;
@@ -54,7 +52,7 @@ class AboutViewTest extends UIUnitTest {
         AboutView about = navigate(AboutView.class);
 
         Assertions.assertTrue(
-                select(Image.class).from(about).first().getComponent()
+                $(Image.class).from(about).first().getComponent()
                         .isVisible(),
                 "Image should be visible on the AboutView");
     }

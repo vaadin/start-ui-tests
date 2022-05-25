@@ -2,15 +2,18 @@ package com.example.application.views.helloworld;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonWrap;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationWrap;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.testbench.unit.ButtonWrap;
-import com.vaadin.testbench.unit.NotificationWrap;
-import com.vaadin.testbench.unit.TextFieldWrap;
+import com.vaadin.flow.component.textfield.TextFieldWrap;
+import com.vaadin.testbench.unit.TreeOnFailureExtension;
 import com.vaadin.testbench.unit.UIUnitTest;
 
+@ExtendWith(TreeOnFailureExtension.class)
 class HelloWorldViewTest extends UIUnitTest {
 
     @Override
@@ -21,10 +24,10 @@ class HelloWorldViewTest extends UIUnitTest {
     @Test
     public void validateDefaultNotification() {
         final HelloWorldView helloView = navigate(HelloWorldView.class);
-        ButtonWrap<Button> button_ = $(helloView.sayHello);
+        ButtonWrap<Button> button_ = wrap(helloView.sayHello);
         button_.click();
 
-        NotificationWrap notification_ = select(Notification.class).first();
+        NotificationWrap notification_ = $(Notification.class).first();
         Assertions.assertEquals("Hello ", notification_.getText());
     }
 
@@ -32,12 +35,12 @@ class HelloWorldViewTest extends UIUnitTest {
     public void validateTextFieldUsage() {
         final HelloWorldView helloView = navigate(HelloWorldView.class);
 
-        final TextFieldWrap<TextField, String> text_ = $(helloView.name);
+        final TextFieldWrap<TextField, String> text_ = wrap(helloView.name);
         text_.setValue("Test");
-        ButtonWrap<Button> button_ = $(helloView.sayHello);
+        ButtonWrap<Button> button_ = wrap(helloView.sayHello);
         button_.click();
 
-        NotificationWrap notification_ = select(Notification.class).first();
+        NotificationWrap notification_ = $(Notification.class).first();
         Assertions.assertEquals("Hello Test", notification_.getText());
     }
 }
