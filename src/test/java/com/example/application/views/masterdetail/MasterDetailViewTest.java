@@ -43,16 +43,17 @@ class MasterDetailViewTest extends UIUnitTest {
     List<SamplePerson> people;
     private GridWrap<Grid<SamplePerson>, SamplePerson> grid_;
 
+
     @BeforeEach
     @Override
     protected void initVaadinEnvironment() {
         super.initVaadinEnvironment(TestInstantiatorFactory.class);
+        grid_ = $(Grid.class).first();
     }
 
     @BeforeEach
     void setupTestData() {
         people = repository.findAll(Pageable.ofSize(10)).toList();
-        grid_ = $(Grid.class).first();
     }
 
     @Test
