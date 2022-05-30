@@ -3,8 +3,8 @@ package com.example.application.views;
 import com.example.application.data.entity.User;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.views.adminrole.AdminRoleView;
-import com.example.application.views.private_.PrivateView;
-import com.example.application.views.public_.PublicView;
+import com.example.application.views.authenticated.ProtectedView;
+import com.example.application.views.anonymous.PublicView;
 import com.example.application.views.userrole.UserRoleView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -133,7 +133,7 @@ public class MainLayout extends AppLayout {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Public", "la la-file", PublicView.class), //
 
-                new MenuItemInfo("Private", "la la-file", PrivateView.class), //
+                new MenuItemInfo("Protected", "la la-file", ProtectedView.class), //
 
                 new MenuItemInfo("User Role", "la la-file", UserRoleView.class), //
 
