@@ -44,16 +44,16 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
 
     private Grid<SamplePerson> grid = new Grid<>(SamplePerson.class, false);
 
-    private TextField firstName;
-    private TextField lastName;
-    private TextField email;
-    private TextField phone;
-    private DatePicker dateOfBirth;
-    private TextField occupation;
-    private Checkbox important;
+    TextField firstName;
+    TextField lastName;
+    TextField email;
+    TextField phone;
+    DatePicker dateOfBirth;
+    TextField occupation;
+    Checkbox important;
 
-    private Button cancel = new Button("Cancel");
-    private Button save = new Button("Save");
+    Button cancel = new Button("Cancel");
+    Button save = new Button("Save");
 
     private BeanValidationBinder<SamplePerson> binder;
 

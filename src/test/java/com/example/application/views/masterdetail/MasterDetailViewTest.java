@@ -24,7 +24,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonWrap;
+import com.vaadin.flow.component.checkbox.CheckboxWrap;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridWrap;
 import com.vaadin.flow.component.notification.Notification;
@@ -43,6 +47,7 @@ class MasterDetailViewTest extends UIUnitTest {
 
     List<SamplePerson> people;
     private GridWrap<Grid<SamplePerson>, SamplePerson> grid_;
+    private MasterDetailView view;
 
     @Override
     protected Set<Class<?>> lookupServices() {
@@ -51,6 +56,7 @@ class MasterDetailViewTest extends UIUnitTest {
 
     @BeforeEach
     void setupTestData() {
+        view = (MasterDetailView) getCurrentView();
         grid_ = $(Grid.class).first();
         people = repository.findAll(Pageable.ofSize(10)).toList();
     }
@@ -142,6 +148,46 @@ class MasterDetailViewTest extends UIUnitTest {
         Assertions.assertTrue(notificationText.contains("ID = " + wrongId));
     }
 
+    @Test
+    void cancel_clearsEditFormAndGridSelection() {
+        grid_.select(1);
+        assertEditFormIsFilled(people.get(1));
+
+        ButtonWrap<Button> cancel_ = wrap(view.cancel);
+        cancel_.click();
+
+        Assertions.assertTrue(grid_.getSelected().isEmpty());
+        Assertions.assertTrue(
+                $(AbstractField.class).allComponents().stream()
+                        .allMatch(AbstractField::isEmpty),
+                "Expecting all form fields to be empty");
+    }
+
+    @Test
+    void save_personAddedToGrid() {
+        $textField(view.firstName).setValue("Attilio");
+        $textField(view.lastName).setValue("Regolo");
+        $textField(view.email).setValue("aregolo@spqr.org");
+        wrap(CheckboxWrap.class, view.important).click();
+
+        wrap(ButtonWrap.class, view.save).click();
+
+        Assertions.assertTrue(
+                $(AbstractField.class).allComponents().stream()
+                        .allMatch(AbstractField::isEmpty),
+                "Expecting form to be cleared, but was not");
+
+        NotificationWrap<?> notification_ = $(Notification.class)
+                .withResultsSize(1).first();
+        String notificationText = notification_.getText();
+        Assertions.assertTrue(
+                notificationText.contains("SamplePerson details stored"));
+
+        Assertions.assertEquals(1L, repository.findAll().stream()
+                .filter(p -> "aregolo@spqr.org".equals(p.getEmail())).count());
+
+    }
+
     private void assertEditFormIsFilled(SamplePerson person) {
         Assertions.assertEquals(person.getFirstName(),
                 $textField(q -> q.withCaption("First Name")).getComponent()
@@ -158,6 +204,11 @@ class MasterDetailViewTest extends UIUnitTest {
         Assertions.assertEquals(person.getOccupation(),
                 $textField(q -> q.withCaption("Occupation")).getComponent()
                         .getValue());
+    }
+
+    @SuppressWarnings("unchecked")
+    private TextFieldWrap<TextField, String> $textField(TextField textField) {
+        return wrap(TextFieldWrap.class, textField);
     }
 
     private TextFieldWrap<TextField, String> $textField(
