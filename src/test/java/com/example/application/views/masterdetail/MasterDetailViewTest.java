@@ -2,6 +2,7 @@ package com.example.application.views.masterdetail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
@@ -43,16 +44,14 @@ class MasterDetailViewTest extends UIUnitTest {
     List<SamplePerson> people;
     private GridWrap<Grid<SamplePerson>, SamplePerson> grid_;
 
-
-    @BeforeEach
     @Override
-    protected void initVaadinEnvironment() {
-        super.initVaadinEnvironment(TestInstantiatorFactory.class);
-        grid_ = $(Grid.class).first();
+    protected Set<Class<?>> lookupServices() {
+        return Set.of(TestInstantiatorFactory.class);
     }
 
     @BeforeEach
     void setupTestData() {
+        grid_ = $(Grid.class).first();
         people = repository.findAll(Pageable.ofSize(10)).toList();
     }
 
