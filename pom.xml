@@ -13,6 +13,7 @@
         <java.version>11</java.version>
         <vaadin.version>23.0.9</vaadin.version>
         <selenium.version>4.1.2</selenium.version>
+        <vaadin.testbench.version>8.1-SNAPSHOT</vaadin.testbench.version>
     </properties>
 
     <parent>
@@ -69,6 +70,13 @@
         <dependencies>
             <dependency>
                 <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-testbench-bom</artifactId>
+                <version>8.1-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-bom</artifactId>
                 <version>${vaadin.version}</version>
                 <type>pom</type>
@@ -120,7 +128,7 @@
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-testbench</artifactId>
+            <artifactId>vaadin-testbench-unit</artifactId>
             <scope>test</scope>
         </dependency>
         <!-- Include JUnit 4 support for TestBench and others -->

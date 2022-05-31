@@ -21,14 +21,14 @@ import com.vaadin.flow.router.Route;
 @Route(value = "address-form", layout = MainLayout.class)
 public class AddressFormView extends Div {
 
-    private TextField street = new TextField("Street address");
-    private TextField postalCode = new TextField("Postal code");
-    private TextField city = new TextField("City");
-    private ComboBox<String> state = new ComboBox<>("State");
-    private ComboBox<String> country = new ComboBox<>("Country");
+    TextField street = new TextField("Street address");
+    TextField postalCode = new TextField("Postal code");
+    TextField city = new TextField("City");
+    ComboBox<String> state = new ComboBox<>("State");
+    ComboBox<String> country = new ComboBox<>("Country");
 
-    private Button cancel = new Button("Cancel");
-    private Button save = new Button("Save");
+    Button cancel = new Button("Cancel");
+    Button save = new Button("Save");
 
     private Binder<SampleAddress> binder = new Binder<>(SampleAddress.class);
 

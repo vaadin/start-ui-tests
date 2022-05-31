@@ -17,6 +17,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
@@ -27,15 +28,15 @@ import com.vaadin.flow.router.Route;
 @Uses(Icon.class)
 public class PersonFormView extends Div {
 
-    private TextField firstName = new TextField("First name");
-    private TextField lastName = new TextField("Last name");
-    private EmailField email = new EmailField("Email address");
-    private DatePicker dateOfBirth = new DatePicker("Birthday");
-    private PhoneNumberField phone = new PhoneNumberField("Phone number");
-    private TextField occupation = new TextField("Occupation");
+    TextField firstName = new TextField("First name");
+    TextField lastName = new TextField("Last name");
+    EmailField email = new EmailField("Email address");
+    DatePicker dateOfBirth = new DatePicker("Birthday");
+    PhoneNumberField phone = new PhoneNumberField("Phone number");
+    TextField occupation = new TextField("Occupation");
 
-    private Button cancel = new Button("Cancel");
-    private Button save = new Button("Save");
+    Button cancel = new Button("Cancel");
+    Button save = new Button("Save");
 
     private Binder<SamplePerson> binder = new Binder<>(SamplePerson.class);
 
@@ -81,9 +82,9 @@ public class PersonFormView extends Div {
         return buttonLayout;
     }
 
-    private static class PhoneNumberField extends CustomField<String> {
-        private ComboBox<String> countryCode = new ComboBox<>();
-        private TextField number = new TextField();
+    static class PhoneNumberField extends CustomField<String> {
+        ComboBox<String> countryCode = new ComboBox<>();
+        TextField number = new TextField();
 
         public PhoneNumberField(String label) {
             setLabel(label);

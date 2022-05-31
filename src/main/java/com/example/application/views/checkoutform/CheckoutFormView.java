@@ -232,7 +232,7 @@ public class CheckoutFormView extends Div {
 
         subSectionTwo.add(expirationMonth, expirationYear);
 
-        paymentInfo.add(stepThree, header, cardHolder, subSectionTwo);
+        paymentInfo.add(stepThree, header, cardHolder, subSectionOne, subSectionTwo);
         return paymentInfo;
     }
 
