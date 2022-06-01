@@ -402,8 +402,8 @@
     "lit": "$lit",
     "@polymer/polymer": "$@polymer/polymer",
     "date-fns": "$date-fns",
-    "lumo-css-framework": "$lumo-css-framework",
     "chokidar": "$chokidar",
-    "@vaadin/lit-renderer": "$@vaadin/lit-renderer"
+    "@vaadin/lit-renderer": "$@vaadin/lit-renderer",
+    "lumo-css-framework": "$lumo-css-framework"
   }
 }

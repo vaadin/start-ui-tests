@@ -21,6 +21,13 @@ public class Company extends AbstractEntity {
     @Formula("(select count(c.id) from Contact c where c.company_id = id)")
     private int employeeCount;
 
+    public Company() {
+    }
+
+    public Company(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -37,7 +44,7 @@ public class Company extends AbstractEntity {
         this.employees = employees;
     }
 
-    public int getEmployeeCount(){
+    public int getEmployeeCount() {
         return employeeCount;
     }
 }
