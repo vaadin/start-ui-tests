@@ -10,7 +10,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <vaadin.version>23.1.0.rc1</vaadin.version>
+        <vaadin.version>23.2-SNAPSHOT</vaadin.version>
     </properties>
 
     <parent>
@@ -152,11 +152,6 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-testbench</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-testbench-unit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
