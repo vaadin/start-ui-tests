@@ -10,13 +10,10 @@ import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.testbench.unit.UIUnitTest;
+import com.vaadin.testbench.unit.ViewPackages;
 
+@ViewPackages(packages = "com.example.application")
 class AboutViewTest extends UIUnitTest {
-
-    @Override
-    protected String scanPackage() {
-        return "com.example.application";
-    }
 
     @Test
     public void navigateByStringInLink() {
@@ -24,22 +21,19 @@ class AboutViewTest extends UIUnitTest {
 
         AboutView about = navigate(aboutString, AboutView.class);
 
-        Assertions.assertTrue(
-                $(Image.class).from(about).first().getComponent()
-                        .isVisible(),
+        Assertions.assertTrue($(Image.class).from(about).first().isVisible(),
                 "Image should be visible on the AboutView");
     }
 
     @Nullable
     private String getMenuItemLink() {
-        final List<RouterLink> menuItems = $(
-                RouterLink.class).withClassName("menu-item-link")
-                .allComponents();
+        final List<RouterLink> menuItems = $(RouterLink.class)
+                .withClassName("menu-item-link").all();
         String aboutString = null;
         for (RouterLink link : menuItems) {
             // Missing the withClass query here.
             if ($(Span.class).from(link).withClassName("menu-item-text").first()
-                    .getComponent().getText().equalsIgnoreCase("about")) {
+                    .getText().equalsIgnoreCase("about")) {
                 aboutString = link.getHref();
                 break;
             }
@@ -51,9 +45,7 @@ class AboutViewTest extends UIUnitTest {
     public void navigateByClass() {
         AboutView about = navigate(AboutView.class);
 
-        Assertions.assertTrue(
-                $(Image.class).from(about).first().getComponent()
-                        .isVisible(),
+        Assertions.assertTrue($(Image.class).from(about).first().isVisible(),
                 "Image should be visible on the AboutView");
     }
 }

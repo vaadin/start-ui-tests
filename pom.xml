@@ -11,7 +11,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <vaadin.version>23.0.9</vaadin.version>
+        <vaadin.version>23.2-SNAPSHOT</vaadin.version>
     </properties>
 
     <parent>
@@ -98,12 +98,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-testbench-core</artifactId>
-            <version>8.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
