@@ -32,7 +32,7 @@ public class ViewSecurityTest extends SpringUIUnitTest {
         Assertions.assertInstanceOf(PublicView.class, getCurrentView());
 
         Assertions.assertTrue(
-                $(Anchor.class).withText("Sign in").first().isUsable(),
+                test($(Anchor.class).withText("Sign in").first()).isUsable(),
                 "Sign in link should be available for anonymous user");
     }
 
@@ -47,12 +47,11 @@ public class ViewSecurityTest extends SpringUIUnitTest {
     void user_protectedView_userInfoVisible() {
         navigate(ProtectedView.class);
 
-        Assertions.assertTrue(
-                $(Avatar.class).first().getComponent().isVisible(),
+        Assertions.assertTrue($(Avatar.class).first().isVisible(),
                 "Avatar should be visible for logged users");
         String username = $(Footer.class).thenOnFirst(Span.class)
                 .withClassName("font-medium", "text-s", "text-secondary")
-                .first().getComponent().getText();
+                .first().getText();
         Assertions.assertEquals("John Normal", username);
     }
 
@@ -61,12 +60,11 @@ public class ViewSecurityTest extends SpringUIUnitTest {
     void adminUser_adminView_viewShown() {
         navigate(AdminRoleView.class);
 
-        Assertions.assertTrue(
-                $(Avatar.class).first().getComponent().isVisible(),
+        Assertions.assertTrue($(Avatar.class).first().isVisible(),
                 "Avatar should be visible for logged users");
         String username = $(Footer.class).thenOnFirst(Span.class)
                 .withClassName("font-medium", "text-s", "text-secondary")
-                .first().getComponent().getText();
+                .first().getText();
         Assertions.assertEquals("Emma Powerful", username);
     }
 
@@ -108,7 +106,7 @@ public class ViewSecurityTest extends SpringUIUnitTest {
     private List<String> getMenuLinks() {
         List<String> menuLinks = $(UnorderedList.class)
                 .withClassName("navigation-list").thenOnFirst(RouterLink.class)
-                .withClassName("menu-item-link").allComponents().stream()
+                .withClassName("menu-item-link").all().stream()
                 .map(RouterLink::getHref).collect(Collectors.toList());
         return menuLinks;
     }
