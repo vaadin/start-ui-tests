@@ -6,18 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonWrap;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.textfield.TextFieldWrap;
-import com.vaadin.testbench.unit.ComponentWrapPackages;
+import com.vaadin.testbench.unit.ComponentTesterPackages;
 import com.vaadin.testbench.unit.SpringUIUnitTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@ComponentWrapPackages("com.example.application.views.personform")
+@ComponentTesterPackages("com.example.application.views.personform")
 class PersonFormViewTest extends SpringUIUnitTest {
 
     PersonFormView view;
@@ -31,19 +29,20 @@ class PersonFormViewTest extends SpringUIUnitTest {
     }
 
     @Test
-    void emptyForm_canSavePerson(){
-        final ButtonWrap<Button> button_ = wrap(view.save);
-        button_.click();
+    void emptyForm_canSavePerson() {
+        test(view.save).click();
 
         $(Notification.class).first();
-        assertTrue(personService.count() >0);
+        assertTrue(personService.count() > 0);
     }
 
     @Test
-    void phoneNumberField_fillSelections_returnsCombinedValue(){
-        final PhoneNumberWrap number_ = wrap(view.phone);
+    void phoneNumberField_fillSelections_returnsCombinedValue() {
+        final PhoneNumberTester number_ = test(view.phone);
         number_.setCountryCode("+44");
-        assertThrows(IllegalArgumentException.class, ()->number_.setNumber("locust"), "TextField only accepts numbers");
+        assertThrows(IllegalArgumentException.class,
+                () -> number_.setNumber("locust"),
+                "TextField only accepts numbers");
 
         number_.setNumber("452324561");
 
@@ -52,13 +51,10 @@ class PersonFormViewTest extends SpringUIUnitTest {
 
     @Test
     void clearButton_emptiesFilledFields() {
-        final TextFieldWrap<TextField, String> fname_ = wrap(view.firstName);
-        final TextFieldWrap<TextField, String> lname_ = wrap(view.lastName);
-        fname_.setValue("John");
-        lname_.setValue("Doe");
+        test(view.firstName).setValue("John");
+        test(view.lastName).setValue("Doe");
 
-        final ButtonWrap<Button> cancel_ = wrap(view.cancel);
-        cancel_.click();
+        test(view.cancel).click();
 
         assertTrue(view.firstName.isEmpty());
         assertTrue(view.lastName.isEmpty());
